@@ -64,12 +64,10 @@
                         </mat-card-header>
                       </div>
                       <mat-card-content>
-                        <p><i class="fas fa-feather-alt"></i> {{day?.Day?.IconPhrase}}<br>
-                          <i class="fas fa-temperature-low"></i> Minimum: {{day?.Temperature?.Minimum?.Value}}'
-                          {{day?.Temperature?.Minimum?.Unit}}<br>
-                          <i class="fas fa-temperature-high"></i> Maximum: {{day?.Temperature?.Maximum?.Value}}'
-                          {{day?.Temperature?.Maximum?.Unit}}<br>
-                        </p>
+                        <p><i class="fas fa-calendar-day"></i> {{day?.DayInWeek}}</p>
+                          <p><i class="fas fa-feather-alt"></i> {{day?.Day?.IconPhrase}}</p>
+                          <p><i class="fas fa-temperature-low"></i>  Minimum: {{day?.Temperature?.Minimum?.Value}}' {{day?.Temperature?.Minimum?.Unit}}</p>
+                          <p><i class="fas fa-temperature-high"></i> Maximum: {{day?.Temperature?.Maximum?.Value}}' {{day?.Temperature?.Maximum?.Unit}}</p>
                       </mat-card-content>
                     </mat-card>
                   </div>

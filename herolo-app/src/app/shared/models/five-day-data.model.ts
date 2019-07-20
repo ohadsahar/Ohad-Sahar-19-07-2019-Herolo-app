@@ -23,4 +23,5 @@ export interface FiveDayWeatherModel {
     MobileLink: string,
     Link: string;
   }];
+  DayInWeek: string;
 }

@@ -11,7 +11,7 @@ const autoCompleteUrl = environment.autoCompleteUrl;
 const currentWeatherUrl = environment.currentWeatherUrl;
 const fiveDayWeatherUrl = environment.fiveDayWeatherUrl;
 const geoLocationWeatherUrl = environment.geoLocationWeatherUrl;
-const apiKey = 'ynBMHXTCQJYPXCdT4DRxj2G4dLhdmluJ';
+const apiKey = 'Xdlt5AoB0Kt4oGjrR9atG04hu07mZnmR';
 
 @Injectable({ providedIn: 'root' })
 

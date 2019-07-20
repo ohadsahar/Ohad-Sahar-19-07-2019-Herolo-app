@@ -14,6 +14,7 @@ import { FiveDayWeatherModel } from './../../../shared/models/five-day-data.mode
 import { FiveDayWeatherHeadLine } from './../../../shared/models/five-day-headlines.model';
 import { MessageService } from './../../services/message.service';
 import { ShareDataService } from './../../services/share-data.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-weather-display',
@@ -52,8 +53,8 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   timer: any;
 
   constructor(private shareDataService: ShareDataService,
-              private messageService: MessageService, private store: Store<fromRoot.State>,
-              private spinnerService: Ng4LoadingSpinnerService) {
+    private messageService: MessageService, private store: Store<fromRoot.State>,
+    private spinnerService: Ng4LoadingSpinnerService) {
     this.metric = true;
     this.defaultKey = '215854';
     this.defaultCity = 'Tel Aviv';
@@ -136,7 +137,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     }
   }
   getWeather(key: string, city: string, countryId: string): void {
-
     this.choose = true;
     this.displayWeather.Country.ID = countryId;
     this.displayWeather.city = city;
@@ -170,6 +170,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
             const save = this.fiveDayWeather;
             this.saveFarWeather = save;
             this.changeUnit();
+            this.changeDateToDays();
             this.stopSpinner(data.loaded);
             this.choose = false;
           }
@@ -178,7 +179,6 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
         (error) => {
           this.messageService.failedMessage(error, 'Close');
         });
-
   }
   changeUnit(): void {
     // This function replaces the measurement units of the degrees respectively
@@ -210,7 +210,18 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
           this.fiveDayWeather[i].Temperature.Minimum.Value = celToFahFormula.toFixed(0);
           this.fiveDayWeather[i].Temperature.Minimum.Unit = 'F';
           this.fiveDayWeather[i].Temperature.Maximum.Unit = 'F';
+
         }
+      }
+    }
+  }
+  changeDateToDays() {
+    let i = 0;
+    let date;
+    if (this.fiveDayWeather && this.fiveDayWeather[i].Date) {
+      for (i = 0; i < 5; i++) {
+        date = this.fiveDayWeather[i].Date;
+        this.fiveDayWeather[i].DayInWeek = moment(date).format('dddd');
       }
     }
   }
