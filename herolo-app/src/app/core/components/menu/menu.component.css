@@ -26,6 +26,9 @@
   color: white !important;
 }
 
+ .dark-navbar {
+  background-color: white !important;
+}
 
 
 @media only screen and (max-width: 600px) {
