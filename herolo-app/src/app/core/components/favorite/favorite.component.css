@@ -59,7 +59,7 @@ h2 {
   display: inline-grid;
   font-family: 'Rajdhani', sans-serif !important;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-  width: 300px;
+  width: 260px;
   margin-top: 3%;
   cursor: pointer;
 }
@@ -77,4 +77,18 @@ h2 {
 
 p {
   word-wrap: break-word
+}
+
+@media only screen and (max-width: 800px) {
+
+
+  .display-weather{
+
+    height: 100%;
+}
+
+
+.five-day-area .row {
+  justify-content: center;
+}
 }
