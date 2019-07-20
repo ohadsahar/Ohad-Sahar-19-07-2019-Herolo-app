@@ -13,11 +13,11 @@
                   </div>
                   <mat-card-content>
                     <div (click)="moreInfoCity(city.city, city.key)">
-                      <p><i class="fas fa-key"></i> Key: {{city.key}}</p>
-                      <p><i class="fas fa-city"></i> City: {{city.city}}</p>
+                      <p><i class="fas fa-flag"></i> ID: {{city?.Country?.ID}}</p>
+                      <p><i class="fas fa-city"></i> City: {{city?.city}}</p>
                       <div style="display: flex">
-                          <p *ngIf="!unit"><i class="fas fa-thermometer-half"></i> Fahrenheit: {{city.Temperature.Imperial.Value}}' {{city.Temperature.Imperial.Unit}}</p><br>
-                          <p *ngIf="unit"> <i class="fas fa-thermometer-half"></i> Celsius: {{city.Temperature.Metric.Value}}' {{city.Temperature.Metric.Unit}}</p>
+                          <p *ngIf="!unit"><i class="fas fa-thermometer-half"></i> Fahrenheit: {{city?.Temperature?.Imperial?.Value}}' {{city?.Temperature?.Imperial?.Unit}}</p><br>
+                          <p *ngIf="unit"> <i class="fas fa-thermometer-half"></i> Celsius: {{city?.Temperature?.Metric?.Value}}' {{city?.Temperature?.Metric?.Unit}}</p>
                       </div>
                       <i class="fas fa-temperature-low"></i> {{city.weatherText}}
                     </div>
@@ -29,5 +29,5 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <div *ngIf="!exists">No favorite cities yet</div>
+    <div *ngIf="!exists" id="no-cities">No favorite cities yet</div>
   </div>

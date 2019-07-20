@@ -1,4 +1,8 @@
 export interface CurrentWeatherModel {
+  Country: {
+    ID: string;
+    LocalizedName: string;
+  };
   LocalObservationDateTime: string;
   WeatherText: string;
   IsDayTime: boolean;

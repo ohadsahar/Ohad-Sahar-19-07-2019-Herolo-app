@@ -26,6 +26,11 @@
   text-align: right;
 }
 
+#no-cities {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
 
 
 .weather-card {

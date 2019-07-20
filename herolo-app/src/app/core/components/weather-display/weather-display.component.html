@@ -8,7 +8,8 @@
           <input matInput (input)="searchWeather($event)" [matAutocomplete]="auto" value="">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of options" [value]="option?.AdministrativeArea?.LocalizedName"
-              (onSelectionChange)="getWeather(option?.Key, option?.AdministrativeArea?.LocalizedName)">
+              (onSelectionChange)="getWeather(option?.Key, option?.AdministrativeArea?.LocalizedName,
+              option?.Country?.ID)">
               {{option?.AdministrativeArea?.LocalizedName}}
             </mat-option>
           </mat-autocomplete>

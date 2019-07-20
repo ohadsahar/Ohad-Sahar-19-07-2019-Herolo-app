@@ -37,19 +37,19 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   public currentCity: string;
   public defaultKey: string;
   public defaultCity: string;
+  public defaultId: string;
   public loaded: boolean;
   public exist: boolean;
   public checked: boolean;
   public unit: boolean;
   public regEng = new RegExp('[a-zA-Z]+');
   public choose: boolean;
-  options: AutoCompleteCityModel[];
-  timer: any;
-
   public currentSubscribe: Subscription;
   public dataToSubscribe: Subscription;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private currentWeather$: Subject<void> = new Subject<void>();
+  options: AutoCompleteCityModel[];
+  timer: any;
 
   constructor(private shareDataService: ShareDataService,
               private messageService: MessageService, private store: Store<fromRoot.State>,
@@ -57,6 +57,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.metric = true;
     this.defaultKey = '215854';
     this.defaultCity = 'Tel Aviv';
+    this.defaultId = 'IL';
     this.exist = false;
     this.choose = false;
 
@@ -72,7 +73,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
       if (response) {
         this.loaded = false;
         const data = { key: JSON.parse(response).key, city: JSON.parse(response).city };
-        this.getWeather(data.key, data.city);
+        this.getWeather(data.key, data.city, 'IL');
       } else {
         this.showMyLocation();
       }
@@ -80,6 +81,7 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   }
   searchWeather($event): void {
     // Search function by city name, Use the timer to avoid a lot of calls to Data Base
+    this.checkFavoriteCitiesExists();
     this.currentCity = $event.target.value;
     if (this.regEng.test(this.currentCity)) {
       clearTimeout(this.timer);
@@ -119,7 +121,8 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
               localStorage.setItem('response', JSON.parse(JSON.stringify(data.data)));
               this.defaultKey = data.data.Key;
               this.defaultCity = data.data.LocalizedName;
-              this.getWeather(data.data.Key, data.data.LocalizedName);
+              this.defaultId = data.data.Country.ID;
+              this.getWeather(data.data.Key, data.data.LocalizedName, this.defaultId);
               dataToSubscribeGeo.unsubscribe();
             }
           }, (error) => {
@@ -127,13 +130,15 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
           });
       },
         () => {
-          this.getWeather(this.defaultKey, this.defaultCity);
+          this.getWeather(this.defaultKey, this.defaultCity, this.defaultId);
           this.checkSpecificCityExists(this.defaultCity);
         });
     }
   }
-  getWeather(key: string, city: string): void {
+  getWeather(key: string, city: string, countryId: string): void {
+
     this.choose = true;
+    this.displayWeather.Country.ID = countryId;
     this.displayWeather.city = city;
     // This function accepts the key and the city name and brings the data up
     this.checkSpecificCityExists(city);

@@ -11,7 +11,7 @@ const autoCompleteUrl = environment.autoCompleteUrl;
 const currentWeatherUrl = environment.currentWeatherUrl;
 const fiveDayWeatherUrl = environment.fiveDayWeatherUrl;
 const geoLocationWeatherUrl = environment.geoLocationWeatherUrl;
-const apiKey = 'tDlqMPkrr7z8xlzaAAUIXLQ6M7jpj5Du';
+const apiKey = 'ynBMHXTCQJYPXCdT4DRxj2G4dLhdmluJ';
 
 @Injectable({ providedIn: 'root' })
 
@@ -25,7 +25,8 @@ export class WeatherService {
     return this.http.get<{ message: CurrentWeatherModel }>(`${currentWeatherUrl}${key}?apikey=${apiKey}`);
   }
   getCurrentWeatherGeolocation(data: LocationModel) {
-    return this.http.get<{Key: string, LocalizedName: string}>(`${geoLocationWeatherUrl}?apikey=${apiKey}&q=${data.x},${data.y}`);
+    return this.http.get<{Key: string, LocalizedName: string,
+    Country: any}>(`${geoLocationWeatherUrl}?apikey=${apiKey}&q=${data.x},${data.y}`);
   }
   getFiveDayWeather(key: number, metric: boolean) {
     return this.http.get<{DailyForecasts: FiveDayWeatherModel, Headline: FiveDayWeatherHeadLine }>
