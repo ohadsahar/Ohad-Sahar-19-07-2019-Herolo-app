@@ -1,0 +1,75 @@
+:host {
+  display: block;
+}
+.display-weather {
+  width: 100% !important;
+  background-image: url("/assets/images/ura-druchuk-dcKyndcAiMs-unsplash.jpg");
+  height: 100vh;
+  background-size: cover;
+  overflow-x: hidden !important;
+  padding: 10px;
+}
+
+.weather-display-component .search {
+  margin: auto;
+  display: block;
+}
+
+.search .input-area {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  display: block;
+}
+
+.fas .fa-search {
+  text-align: right;
+}
+
+
+
+.weather-card {
+  margin: auto;
+  display: block;
+  font-family: 'Rajdhani', sans-serif !important;
+  margin-top: 5%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.weather-card-black {
+  background-color: black;
+  color: white;
+}
+
+.current-weather-data .mat-card-header {
+  display: block;
+  font-size: 25px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.five-day-cards {
+  display: inline-grid;
+  font-family: 'Rajdhani', sans-serif !important;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  width: 300px;
+  margin-top: 3%;
+  cursor: pointer;
+}
+
+.mat-card-content>:last-child:not(.mat-card-footer),
+.mat-card>:last-child:not(.mat-card-footer) {
+  margin-bottom: 0;
+  text-align: center;
+  margin: auto;
+  display: table;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left !important;
+}
+
+p {
+  word-wrap: break-word
+}

@@ -1,0 +1,33 @@
+<ng4-loading-spinner *ngIf="!loaded" [timeout]="999999"  [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+<div class="display-weather" *ngIf="loaded" @routeSlideRight>
+    <mat-card class="weather-card" *ngIf="exists" [class.weather-card-black]="checked">
+      <mat-card-content>
+        <div class="five-day-area">
+          <div class="row">
+            <div *ngFor="let city of favoriteCities">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <mat-card class="five-day-cards">
+                  <div class="five-day-weather-data">
+                    <mat-card-header>
+                    </mat-card-header>
+                  </div>
+                  <mat-card-content>
+                    <div (click)="moreInfoCity(city.city, city.key)">
+                      <p><i class="fas fa-key"></i> Key: {{city.key}}</p>
+                      <p><i class="fas fa-city"></i> City: {{city.city}}</p>
+                      <div style="display: flex">
+                          <p *ngIf="!unit"><i class="fas fa-thermometer-half"></i> Fahrenheit: {{city.Temperature.Imperial.Value}}' {{city.Temperature.Imperial.Unit}}</p><br>
+                          <p *ngIf="unit"> <i class="fas fa-thermometer-half"></i> Celsius: {{city.Temperature.Metric.Value}}' {{city.Temperature.Metric.Unit}}</p>
+                      </div>
+                      <i class="fas fa-temperature-low"></i> {{city.weatherText}}
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div *ngIf="!exists">No favorite cities yet</div>
+  </div>

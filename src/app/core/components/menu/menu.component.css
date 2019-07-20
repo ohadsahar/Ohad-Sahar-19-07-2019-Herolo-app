@@ -1,0 +1,36 @@
+.bg-light {
+  background-color: #f8f9fa!important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.bg-dark {
+  background-color: black !important;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.navbar-brand {
+  font-size: xx-large;
+}
+
+.navbar-brand-dark {
+  color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  font-family: 'Rajdhani', sans-serif !important;
+}
+.nav-link-two {
+  font-family: 'Rajdhani', sans-serif !important;
+  color: white !important;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+  .navbar-brand {
+    font-size: larger;
+  }
+}

@@ -1,0 +1,82 @@
+<ng4-loading-spinner *ngIf="!loaded" [timeout]="999999" [loadingText]="'Please wait...'" [zIndex]="9999">
+</ng4-loading-spinner>
+<div class="weather-display-component" *ngIf="loaded" @routeFadeState>
+  <div class="search">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <mat-form-field class="input-area">
+          <input matInput (input)="searchWeather($event)" [matAutocomplete]="auto" value="">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option?.AdministrativeArea?.LocalizedName"
+              (onSelectionChange)="getWeather(option?.Key, option?.AdministrativeArea?.LocalizedName)">
+              {{option?.AdministrativeArea?.LocalizedName}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-placeholder>Search (by city name) <i class="fas fa-search"></i></mat-placeholder>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <div class="display-weather" *ngIf="loaded">
+        <mat-card class="weather-card" [class.weather-card-black]="checked">
+          <div class="current-weather-data">
+            <mat-card-header id="current-header">
+              <div class="row">
+                <div class="col-sm-12 col col-md-7 col-lg-7">
+                  <div *ngIf="!metric">
+                    {{displayWeather?.city}}
+                    {{displayWeather?.Temperature?.Imperial?.Value}}'
+                    {{displayWeather?.Temperature?.Imperial?.Unit}}
+                    <i class="fas fa-sun" *ngIf="currentWeather?.IsDayTime" id="day-night"></i>
+                    <i class="fas fa-moon" *ngIf="!currentWeather?.IsDayTime" id="day-night"></i>
+                  </div>
+                  <div *ngIf="metric">
+                    {{displayWeather?.city}}
+                    {{displayWeather?.Temperature?.Metric?.Value}}'
+                    {{displayWeather?.Temperature?.Metric?.Unit}}
+                    <i class="fas fa-sun" *ngIf="currentWeather?.IsDayTime" id="day-night"></i>
+                    <i class="fas fa-moon" *ngIf="!currentWeather?.IsDayTime" id="day-night"></i>
+                  </div>
+                </div>
+                <div class="col-sm-12 col col-md-2 col-lg-2"></div>
+                <div class="col-sm-12 col col-md-3 col-lg-3">
+                  <button class="remove-add-button" mat-button (click)="addToFavorite()" *ngIf="!exist">Add to Favorites
+                    <i class="fas fa-heart" [class.fa-heart:before-dark]="checked" *ngIf="!exist"></i></button>
+                  <button class="remove-add-button" mat-button (click)="removeFromFavorite()" *ngIf="exist">Remove from
+                    favorite <i class="fas fa-heart" [ngStyle]="exist && {'color': 'red'}"></i> </button>
+                </div>
+              </div>
+            </mat-card-header>
+          </div>
+          <mat-card-content>
+            <h2>{{fiveDayWeatherHeadLines?.Text}}</h2>
+            <div class="five-day-area">
+              <div class="row">
+                <div *ngFor="let day of fiveDayWeather" @itemState>
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                    <mat-card class="five-day-cards">
+                      <div class="five-day-weather-data">
+                        <mat-card-header>
+                        </mat-card-header>
+                      </div>
+                      <mat-card-content>
+                        <p><i class="fas fa-feather-alt"></i> {{day?.Day?.IconPhrase}}<br>
+                          <i class="fas fa-temperature-low"></i> Minimum: {{day?.Temperature?.Minimum?.Value}}'
+                          {{day?.Temperature?.Minimum?.Unit}}<br>
+                          <i class="fas fa-temperature-high"></i> Maximum: {{day?.Temperature?.Maximum?.Value}}'
+                          {{day?.Temperature?.Maximum?.Unit}}<br>
+                        </p>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
