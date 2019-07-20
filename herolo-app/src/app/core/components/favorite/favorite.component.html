@@ -12,7 +12,7 @@
                     </mat-card-header>
                   </div>
                   <mat-card-content>
-                    <div (click)="moreInfoCity(city.city, city.key)">
+                    <div (click)="moreInfoCity(city?.city, city?.key, city?.Country?.ID)">
                       <p><i class="fas fa-flag"></i> ID: {{city?.Country?.ID}}</p>
                       <p><i class="fas fa-city"></i> City: {{city?.city}}</p>
                       <div style="display: flex">

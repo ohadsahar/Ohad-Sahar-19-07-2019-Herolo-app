@@ -47,14 +47,15 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
   public choose: boolean;
   public currentSubscribe: Subscription;
   public dataToSubscribe: Subscription;
+  public intKey: number;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private currentWeather$: Subject<void> = new Subject<void>();
   options: AutoCompleteCityModel[];
   timer: any;
 
   constructor(private shareDataService: ShareDataService,
-    private messageService: MessageService, private store: Store<fromRoot.State>,
-    private spinnerService: Ng4LoadingSpinnerService) {
+              private messageService: MessageService, private store: Store<fromRoot.State>,
+              private spinnerService: Ng4LoadingSpinnerService) {
     this.metric = true;
     this.defaultKey = '215854';
     this.defaultCity = 'Tel Aviv';
@@ -73,8 +74,8 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.shareDataService.currentCity.subscribe(response => {
       if (response) {
         this.loaded = false;
-        const data = { key: JSON.parse(response).key, city: JSON.parse(response).city };
-        this.getWeather(data.key, data.city, 'IL');
+        const data = { key: JSON.parse(response).key, city: JSON.parse(response).city, countryID: JSON.parse(response).countryID };
+        this.getWeather(data.key, data.city, data.countryID);
       } else {
         this.showMyLocation();
       }
@@ -142,21 +143,20 @@ export class WeatherDisplayComponent implements OnInit, OnDestroy {
     this.displayWeather.city = city;
     // This function accepts the key and the city name and brings the data up
     this.checkSpecificCityExists(city);
-    const intKey = Number(key);
-    this.store.dispatch(new weatherActions.GetCurrentWeather(intKey));
+    this.intKey = Number(key);
+    this.store.dispatch(new weatherActions.GetCurrentWeather(this.intKey));
     this.currentSubscribe = this.store.select(fromRoot.getWeatherData).pipe(takeUntil(this.currentWeather$))
       .subscribe((data) => {
         if (data.loaded && this.choose) {
           this.currentWeather = data.data[0];
           this.messageService.successMessage(`The weather for ${this.displayWeather.city} was successfully loaded`, 'Close');
-          this.assignWeatherCityData(intKey);
-          this.getFiveDayWeather(intKey);
+          this.assignWeatherCityData(this.intKey);
+          this.getFiveDayWeather(this.intKey);
         }
       },
         (error) => {
           this.messageService.failedMessage(error, 'Close');
         });
-
   }
   getFiveDayWeather(key: number): void {
     // This function brings the 5 days of weather for the current city

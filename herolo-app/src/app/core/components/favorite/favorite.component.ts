@@ -36,8 +36,8 @@ export class FavoriteComponent implements OnInit {
       this.checkFavoriteCitiesExists();
     });
   }
-  moreInfoCity(city: string, key: number) {
-    const data = {city, key};
+  moreInfoCity(city: string, key: number, countryID: string) {
+    const data = {city, key, countryID};
     this.shareDataService.changeCity(JSON.stringify(data));
     this.router.navigate(['weather-display']);
   }
